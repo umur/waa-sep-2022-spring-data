@@ -13,4 +13,6 @@ public interface ProductService {
     List<Product>findAllByPriceGreaterThan(double price);
 
     List<Product> findAllByNameContaining(String name);
+
+    void deleteById(int id);
 }

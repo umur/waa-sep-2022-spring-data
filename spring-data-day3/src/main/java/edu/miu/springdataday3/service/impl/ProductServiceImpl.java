@@ -31,4 +31,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllByNameContaining(String name) {
         return productRepo.findAllByNameContaining(name);
     }
+
+    @Override
+    public void deleteById(int id) {
+        productRepo.deleteById(id);
+    }
 }
