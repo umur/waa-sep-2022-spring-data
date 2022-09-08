@@ -36,4 +36,9 @@ public class ProductServiceImpl implements ProductService {
     public void deleteById(int id) {
         productRepo.deleteById(id);
     }
+
+    @Override
+    public List<Product> findProductsInCategoryByPriceLessThan(int id, double price) {
+        return productRepo.findProductsInCategoryByPriceLessThan(id,price);
+    }
 }

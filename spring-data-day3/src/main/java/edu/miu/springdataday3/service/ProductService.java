@@ -15,4 +15,5 @@ public interface ProductService {
     List<Product> findAllByNameContaining(String name);
 
     void deleteById(int id);
+    List<Product> findProductsInCategoryByPriceLessThan(int id, double price);
 }

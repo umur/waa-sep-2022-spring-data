@@ -28,6 +28,10 @@ public class ProductController {
     public List<Product> findAllByPriceGreaterThan(@PathVariable double price) {
         return productService.findAllByPriceGreaterThan(price);
     }
+    @GetMapping("/{id}/{price}")
+    public List<Product> findProductsInCategoryByPriceLessThan(@PathVariable int id, @PathVariable int price) {
+        return productService.findProductsInCategoryByPriceLessThan(id,price);
+    }
 
     @PostMapping
     void createNewProduct(@RequestBody Product product){
