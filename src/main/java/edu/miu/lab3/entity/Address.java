@@ -15,7 +15,7 @@ public class Address {
     private String zip;
     private String city;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne
     private User user;
 
 }
