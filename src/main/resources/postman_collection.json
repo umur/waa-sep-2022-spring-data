@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "d1a906c4-df4e-4c34-89cb-65776838d8fa",
+		"name": "CS545-WAA-Spring-Data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "135924"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Categories - Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories - Get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categories/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories - Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"F&B\",\n    \"products\": [\n\t\t{\n\t\t    \"name\": \"Product-name-11\",\n\t\t    \"price\": 20,\n\t\t    \"rating\": 4\n\t\t},\n\t\t{\n\t\t    \"name\": \"Product-name-12\",\n\t\t    \"price\": 30,\n\t\t    \"rating\": 5\n\t\t},\n\t\t{\n\t\t    \"name\": \"Product-name-13\",\n\t\t    \"price\": 40,\n\t\t    \"rating\": 6\n\t\t},\n\t\t{\n\t\t    \"name\": \"Product-name-14\",\n\t\t    \"price\": 50,\n\t\t    \"rating\": 4\n\t\t},\n\t\t{\n\t\t    \"name\": \"Product-name-15\",\n\t\t    \"price\": 30.3,\n\t\t    \"rating\": 1\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Categories - Delete by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categories/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Products - Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products - Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Product-name-16\",\n    \"price\": 20,\n    \"rating\": 4,\n    \"category\": {\n        \"id\": 1\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products - Search products by minPrice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/minPrice/40",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"minPrice",
+								"40"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products - Search products by cat and maxPrice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/category/1/maxPrice/30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"category",
+								"1",
+								"maxPrice",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Products - Search products by keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/search?keyword=name-7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "name-7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

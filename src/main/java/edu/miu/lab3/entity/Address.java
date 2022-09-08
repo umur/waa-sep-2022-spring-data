@@ -10,12 +10,12 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String street;
     private String zip;
     private String city;
 
-    @OneToOne
+    @OneToOne(mappedBy = "address")
     private User user;
 
 }

@@ -23,15 +23,9 @@ spring:
     init:
       mode: always
 
-
   main:
     allow-bean-definition-overriding: true
 
-#  web:
-#    resources:
-#      static-locations: classpath:/resources/images
-
-
 server:
-  port: 4040
+  port: 8080
 

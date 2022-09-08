@@ -15,13 +15,13 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping()
-    public List<CategoryDto> get() {
-        return categoryService.get();
+    public List<CategoryDto> findAll() {
+        return categoryService.findAll();
     }
 
     @GetMapping("/{id}")
-    public CategoryDto get(@PathVariable int id) {
-        return categoryService.get(id);
+    public CategoryDto findById(@PathVariable int id) {
+        return categoryService.findById(id);
     }
 
     @PostMapping()
@@ -37,7 +37,7 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable int id) {
-        categoryService.delete(id);
+        categoryService.deleteById(id);
         return true;
     }
 

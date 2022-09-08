@@ -21,12 +21,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> get() {
+    public List<CategoryDto> findAll() {
         return ((List<Category>) categoryRepo.findAll()).stream().map(p -> modelMapper.map(p, CategoryDto.class)).toList();
     }
 
     @Override
-    public CategoryDto get(int id) {
+    public CategoryDto findById(int id) {
         Category category = categoryRepo.findById(id).orElse(null);
         return category == null ? null : modelMapper.map(category, CategoryDto.class);
     }
@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(int id) {
+    public void deleteById(int id) {
         categoryRepo.deleteById(id);
     }
 
