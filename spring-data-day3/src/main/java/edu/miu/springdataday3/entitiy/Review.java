@@ -15,7 +15,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String comment;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     User user;
 
 }
