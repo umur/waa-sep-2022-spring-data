@@ -28,8 +28,8 @@ public class User {
 
     private Address address;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user")
+
     private List<Review> reviews;
 
 

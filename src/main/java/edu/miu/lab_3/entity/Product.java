@@ -14,6 +14,7 @@ public class Product {
     private double price;
     private int rating;
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
 }

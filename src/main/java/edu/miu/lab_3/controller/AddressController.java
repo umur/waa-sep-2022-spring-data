@@ -1,5 +1,6 @@
 package edu.miu.lab_3.controller;
 
+import edu.miu.lab_3.entity.Address;
 import lombok.RequiredArgsConstructor;
 import edu.miu.lab_3.dto.AddressDto;
 import edu.miu.lab_3.service.imp.AddressServiceImp;
@@ -19,21 +20,25 @@ public class AddressController {
         return addressService.findAll();
     }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/{id}/")
     public AddressDto findAddressById(@PathVariable int id) {
         return addressService.findAddressById(id);
     }
 
     @PostMapping
-    public AddressDto save(@RequestBody AddressDto addressDto) {
-        return addressService.save(addressDto);
+    public void save(@RequestBody Address address) {
+         addressService.save(address);
     }
     @DeleteMapping("/{id}")
-    public AddressDto deleteAddress(int id){
-        return addressService.deleteAddressById(id);
+    public void deleteAddress(int id){
+         addressService.deleteAddressById(id);
     }
     @PutMapping("/{id}")
-    public AddressDto updateAddress(int id, AddressDto addressDto) {
-        return addressService.updateAddress(id, addressDto);
+    public Address updateAddress(int id, Address address) {
+        AddressDto addressDto1 = addressService.findAddressById(id);
+        addressService.deleteAddressById(id);
+        addressService.save(address);
+        return address;
     }
 }

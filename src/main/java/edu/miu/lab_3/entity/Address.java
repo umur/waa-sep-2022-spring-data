@@ -1,12 +1,16 @@
 package edu.miu.lab_3.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
-@Table(name = "living_address")
+//@Table(name = "living_address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
