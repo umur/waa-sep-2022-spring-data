@@ -4,13 +4,16 @@ import edu.miu.demo.domain.bidirection.joincolumn.Review;
 import edu.miu.demo.dto.ReviewDto;
 import edu.miu.demo.repo.ReviewRepo;
 import edu.miu.demo.service.ReviewService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+@Service
+@Transactional
 public class ReviewServiceImpl implements ReviewService {
 
     private ReviewRepo reviewRepository;

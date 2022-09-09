@@ -15,4 +15,7 @@ public interface ProductRepo extends CrudRepository<Product, Integer> {
 
      List<Product> findAllByNameContains(@Param("name") String name);
 
+
+
+
 }
