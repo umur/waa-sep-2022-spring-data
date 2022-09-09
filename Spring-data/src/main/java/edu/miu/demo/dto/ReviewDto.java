@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReviewDto {
-    private Long id;
-
+    private int id;
     private String comment;
+    private UserDto userDto;
 }

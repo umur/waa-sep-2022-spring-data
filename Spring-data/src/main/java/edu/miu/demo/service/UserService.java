@@ -1,17 +1,16 @@
 package edu.miu.demo.service;
 
+
 import edu.miu.demo.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
-
     List<UserDto> findAll();
 
-    UserDto findById(Long id);
+    UserDto create(UserDto userDto);
 
-    UserDto save(UserDto user);
+    UserDto findById(int id);
 
-    void remove(Long id);
-
+    void delete(int id);
 }

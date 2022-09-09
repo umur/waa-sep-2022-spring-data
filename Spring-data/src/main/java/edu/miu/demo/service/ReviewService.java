@@ -1,18 +1,16 @@
 package edu.miu.demo.service;
 
+
 import edu.miu.demo.dto.ReviewDto;
 
 import java.util.List;
 
 public interface ReviewService {
-
     List<ReviewDto> findAll();
 
-    ReviewDto findById(Long id);
+    ReviewDto create(ReviewDto reviewDto);
 
-    void delete(Long id);
+    ReviewDto findById(int id);
 
-    ReviewDto save(ReviewDto review);
-
-    List<ReviewDto> findAllReviewByProductId(Long id);
+    void delete(int id);
 }

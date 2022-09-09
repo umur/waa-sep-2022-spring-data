@@ -1,78 +1,60 @@
 package edu.miu.demo.controller;
 
-import edu.miu.demo.dto.ProductDto;
-import edu.miu.demo.dto.ReviewDto;
+import edu.miu.demo.model.Product;
 import edu.miu.demo.service.ProductService;
-import edu.miu.demo.service.ReviewService;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@AllArgsConstructor
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    ProductService productService;
 
-    ReviewService reviewService;
+    @Autowired
+    private ProductService productService;
 
+    @GetMapping()
+    public List<Product> findAll() {return productService.findAll();}
 
-
-    @GetMapping
-    public ResponseEntity<List<ProductDto>> getAll(){
-        var products = productService.findAll();
-        return ResponseEntity.ok().body(products);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getById(@PathVariable int id){
-        var product = productService.findById(id);
-        return ResponseEntity.ok(product);
-    }
-
-    @PostMapping
-    public ResponseEntity<ProductDto> create(@RequestBody ProductDto product){
-        product = productService.save(product);
-        return ResponseEntity.ok(product);
+    @PostMapping()
+    public void create(@RequestBody Product product) {
+        productService.create(product);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(@RequestBody ProductDto product, @PathVariable Long id){
+    public ResponseEntity<?> update(@RequestBody Product product, @PathVariable int id){
         product.setId(id);
-        product = productService.save(product);
-        return ResponseEntity.ok(product);
+        productService.create(product);
+        return ResponseEntity.ok("ProductV1 updated!");
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id){
-        productService.remove(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable int id) {
+        return ResponseEntity.ok(productService.getById(id));
     }
 
-    @GetMapping("/{id}/reviews")
-    public ResponseEntity<List<ReviewDto>> getProductReview(@PathVariable Long id){
-        List<ReviewDto> reviewDtos = reviewService.findAllReviewByProductId(id);
-        return ResponseEntity.ok(reviewDtos);
+    @DeleteMapping
+    public void delete(@PathVariable int id) {productService.delete(id);}
+
+//    @GetMapping("/{minPrice}")
+    @GetMapping("/filter/minprice")
+    public ResponseEntity<List<Product>> findAllByPriceGreaterThan(@RequestParam("minPrice") Double minPrice) {
+        List<Product> products = productService.findAllByPriceGreaterThan(minPrice);
+        return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/filter-price-greater-than")
-    public ResponseEntity<List<ProductDto>> findAllByPriceGreaterThan(@RequestParam("min-price") Double minPrice){
-        List<ProductDto> productDtos = productService.findAllByPriceGreaterThan(minPrice);
-        return ResponseEntity.ok(productDtos);
+    @GetMapping("/filter/name")
+    public ResponseEntity<List<Product>> findAllByNameContains(@RequestParam("key") String key) {
+        List<Product> products = productService.findAllByNameContains(key);
+        return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/filter-category-and-price-less-than")
-    public ResponseEntity<List<ProductDto>> findByCategoryNameAndPriceLessThan(@RequestParam("max-price") Double maxPrice, @RequestParam("category") String category){
-        List<ProductDto> productDtos = productService.findByCategoryNameAndPriceLessThan(category, maxPrice);
-        return ResponseEntity.ok(productDtos);
-    }
-
-    @GetMapping("/filter-name")
-    public ResponseEntity<List<ProductDto>> findAllByNameContains(@RequestParam String name){
-        List<ProductDto> productDtos = productService.findAllByNameContains(name);
-        return ResponseEntity.ok(productDtos);
+    @GetMapping("/filter/category-maxprice")
+    public ResponseEntity<List<Product>> findByCategoryNameAndPriceLessThan(@RequestParam("maxPrice") Double maxPrice, @RequestParam("category") String category) {
+        List<Product> products = productService.findByCategoryNameAndPriceLessThan(category, maxPrice);
+        return ResponseEntity.ok(products);
     }
 
 }

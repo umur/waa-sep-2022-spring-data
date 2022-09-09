@@ -1,71 +1,67 @@
-package edu.miu.demo.service.Impl;
+package edu.miu.demo.service.impl;
 
-import edu.miu.demo.domain.Product;
+
 import edu.miu.demo.dto.ProductDto;
+import edu.miu.demo.model.Product;
 import edu.miu.demo.repo.ProductRepo;
 import edu.miu.demo.service.ProductService;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Service
-@Transactional
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepo productRepository;
+    private ProductRepo productRepo;
+
     private ModelMapper modelMapper;
 
-
-    @Override
-    public List<ProductDto> findAll() {
-        var products = productRepository.findAll();
-        Type listType = new TypeToken<List<ProductDto>>(){}.getType();
-        return modelMapper.map(products,listType);
+    public ProductServiceImpl(ProductRepo productRepo, ModelMapper modelMapper) {
+        this.productRepo = productRepo;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public ProductDto findById(int id) {
-        var product  = productRepository.findById(id).orElseThrow(()-> new RuntimeException(String.format("ProductDto with id %s does not exits",id)));
-        ProductDto productDto = modelMapper.map(product, ProductDto.class);
-        return productDto;
+    public List<Product> findAll() {
+        List<Product> products = new ArrayList<>();
+        productRepo.findAll().forEach(product -> {products.add(product);});
+        return products;
     }
 
     @Override
-    public ProductDto save(ProductDto productDto) {
-        Product product = modelMapper.map(productDto, Product.class);
-        return modelMapper.map(productRepository.save(product), ProductDto.class);
+    public void create(Product product) {
+        productRepo.save(product);
     }
 
     @Override
-    public void remove(int id) {
-        productRepository.deleteById(id);
+    public void delete(int id) {
+        productRepo.deleteById(id);
     }
 
     @Override
-    public List<ProductDto> findAllByPriceGreaterThan(Double minPrice) {
-        var products = productRepository.findAllByPriceGreaterThan(minPrice);
-        Type listType = new TypeToken<List<ProductDto>>(){}.getType();
-        return modelMapper.map(products,listType);
+    public ProductDto getById(int id) {
+        var product = productRepo.findById(id).orElseThrow(()-> new RuntimeException(String.format("Not found")));
+        return modelMapper.map(product, ProductDto.class);
     }
 
     @Override
-    public List<ProductDto> findByCategoryNameAndPriceLessThan(String categoryName, Double maxPrice) {
-        var products = productRepository.findByCategoryNameAndPriceLessThan(categoryName,maxPrice);
-        Type listType = new TypeToken<List<ProductDto>>(){}.getType();
-        return modelMapper.map(products,listType);
+    public List<Product> findAllByPriceGreaterThan(Double minPrice) {
+        var products = productRepo.findAllByPriceGreaterThan(minPrice);
+        return products;
     }
 
     @Override
-    public List<ProductDto> findAllByNameContains(String keyword) {
-        var products = productRepository.findAllByNameContains(keyword);
-        Type listType = new TypeToken<List<ProductDto>>(){}.getType();
-        return modelMapper.map(products,listType);
+    public List<Product> findByCategoryNameAndPriceLessThan(String categoryName, Double maxPrice) {
+        var products = productRepo.findByCategoryNameAndPriceLessThan(categoryName, maxPrice);
+        return products;
+    }
+
+    @Override
+    public List<Product> findAllByNameContains(String keyword) {
+        var products = productRepo.findAllByNameContains(keyword);
+        return products;
     }
 
 }

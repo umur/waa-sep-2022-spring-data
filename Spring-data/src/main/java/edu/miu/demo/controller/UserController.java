@@ -2,50 +2,34 @@ package edu.miu.demo.controller;
 
 import edu.miu.demo.dto.UserDto;
 import edu.miu.demo.service.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
-    public UserController(UserService userService){
-        this.userService = userService;
-    }
-
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAll(){
-        var users = userService.findAll();
-        return ResponseEntity.ok().body(users);
-    }
+    public List<UserDto> findAll() {return userService.findAll();}
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getById(@PathVariable Long id){
-        var userDto = userService.findById(id);
-        return ResponseEntity.ok(userDto);
+    public UserDto findById(@PathVariable int id) {
+        return userService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@RequestBody UserDto userDto){
-        userDto = userService.save(userDto);
-        return ResponseEntity.ok(userDto);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@RequestBody UserDto userDto, @PathVariable Long id){
-        userDto.setId(id);
-        userDto = userService.save(userDto);
-        return ResponseEntity.ok(userDto);
+    public UserDto create(@RequestBody UserDto userDto) {
+        return userService.create(userDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-        userService.remove(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    public void delete(@PathVariable int id) {
+        userService.delete(id);
     }
 
 }

@@ -4,17 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-
+@NoArgsConstructor
 public class UserDto {
-    private Long id;
-    private String firstName;
-    private String lastName;
+    private int id;
     private String email;
     private String password;
-    private List<ReviewDto> reviews;
+    private String firstName;
+    private String lastName;
     private AddressDto address;
 }

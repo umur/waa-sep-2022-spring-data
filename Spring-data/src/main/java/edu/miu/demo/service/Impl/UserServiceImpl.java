@@ -1,49 +1,57 @@
-package edu.miu.demo.service.Impl;
+package edu.miu.demo.service.impl;
+
 
 import edu.miu.demo.dto.UserDto;
-import edu.miu.demo.repo.UserRepo;
+import edu.miu.demo.model.User;
+import edu.miu.demo.repo.UsersRepo;
 import edu.miu.demo.service.UserService;
-import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    private UserRepo userRepository;
-
+    private UsersRepo usersRepo;
     private ModelMapper modelMapper;
 
+    public UserServiceImpl(UsersRepo usersRepo, ModelMapper modelMapper){
+        this.usersRepo = usersRepo;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
-    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public List<UserDto> findAll() {
-        var users = userRepository.findAll();
-        Type listType = new TypeToken<List<UserDto>>(){}.getType();
-        return modelMapper.map(users,listType);
+        List<User> users = new ArrayList<>();
+        List<UserDto> userDtos = new ArrayList<>();
+        usersRepo.findAll().forEach(u->  {
+            System.out.println(u.getAddress().toString());
+            users.add(u);
+        });
+        users.forEach(u1-> {
+            var result = modelMapper.map(u1, UserDto.class);
+            userDtos.add(result);
+        });
+        return userDtos;
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional(readOnly = true)
-    public UserDto findById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException(String.format("User does not exist %s",id)));
-        return modelMapper.map(userRepository.save(user),UserDto.class);
+    public UserDto create(UserDto userDto) {
+        var user = modelMapper.map(userDto, User.class);
+        return modelMapper.map(usersRepo.save(user), UserDto.class);
     }
 
     @Override
-    public UserDto save(UserDto userDto) {
-        User user = modelMapper.map(userDto, User.class);
-        return modelMapper.map(userRepository.save(user),UserDto.class);
+    public UserDto findById(int id) {
+        User user = usersRepo.findById(id).orElseThrow(() -> new RuntimeException(String.format("Not found")));
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Override
-    public void remove(Long id) {
-        userRepository.deleteById(id);
+    public void delete(int id) {
+        usersRepo.deleteById(id);
     }
 }

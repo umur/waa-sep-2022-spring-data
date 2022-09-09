@@ -1,21 +1,25 @@
 package edu.miu.demo.service;
 
+
+
 import edu.miu.demo.dto.ProductDto;
+import edu.miu.demo.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<ProductDto> findAll();
 
-    ProductDto findById(int id);
+    List<Product> findAll();
 
-    ProductDto save(ProductDto product);
+    void create(Product product);
 
-    void remove(int id);
+    void delete(int id);
 
-    List<ProductDto> findAllByPriceGreaterThan(Double minPrice);
+    ProductDto getById(int id);
 
-    List<ProductDto> findByCategoryNameAndPriceLessThan(String categoryName, Double maxPrice);
+    List<Product> findAllByPriceGreaterThan(Double minPrice);
 
-    List<ProductDto> findAllByNameContains(String keyword);
+    List<Product> findByCategoryNameAndPriceLessThan(String categoryName, Double maxPrice);
+
+    List<Product> findAllByNameContains(String keyword);
 }

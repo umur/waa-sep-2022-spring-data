@@ -1,61 +1,52 @@
-package edu.miu.demo.service.Impl;
+package edu.miu.demo.service.impl;
 
-import edu.miu.demo.domain.bidirection.joincolumn.Review;
 import edu.miu.demo.dto.ReviewDto;
+import edu.miu.demo.model.Review;
 import edu.miu.demo.repo.ReviewRepo;
 import edu.miu.demo.service.ReviewService;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+
 @Service
-@Transactional
 public class ReviewServiceImpl implements ReviewService {
 
-    private ReviewRepo reviewRepository;
+    private final ReviewRepo reviewRepo;
+    private final ModelMapper modelMapper;
 
-    private ModelMapper modelMapper;
-
-    public ReviewServiceImpl(ReviewRepo reviewRepository,ModelMapper modelMapper){
-        this.reviewRepository = reviewRepository;
+    public ReviewServiceImpl(ReviewRepo reviewRepo, ModelMapper modelMapper) {
+        this.reviewRepo = reviewRepo;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<ReviewDto> findAll() {
-        var reviews = reviewRepository.findAll();
-        Type listType = new TypeToken<List<ReviewDto>>(){}.getType();
-        return modelMapper.map(reviews,listType);
+        List<Review> reviews = new ArrayList<>();
+        List<ReviewDto> reviewDtos = new ArrayList<>();
+        reviewRepo.findAll().forEach(r-> {
+            reviews.add(r);
+        });
+        reviews.forEach(r1-> {
+            var result = modelMapper.map(r1, ReviewDto.class);
+            reviewDtos.add(result);
+        });
+        return reviewDtos;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public ReviewDto findById(Long id) {
-        var review = reviewRepository.findById(id).orElseThrow(()-> new RuntimeException(String.format("Review with id %s does not exits",id)));
+    public ReviewDto create(ReviewDto reviewDto) {
+        var review = modelMapper.map(reviewDto, Review.class);
+        return modelMapper.map(reviewRepo.save(review), ReviewDto.class);
+    }
+
+    @Override
+    public ReviewDto findById(int id) {
+        Review review = reviewRepo.findById(id).orElseThrow(() -> new RuntimeException(String.format("Not found")));
         return modelMapper.map(review, ReviewDto.class);
     }
 
     @Override
-    public void delete(Long id) {
-        reviewRepository.deleteById(id);
-    }
-
-    @Override
-    public ReviewDto save(ReviewDto reviewDto) {
-        var review = modelMapper.map(reviewDto, Review.class);
-        return modelMapper.map(reviewRepository.save(review), ReviewDto.class);
-    }
-
-    @Override
-    public List<ReviewDto> findAllReviewByProductId(Long id) {
-        var reviews = reviewRepository.findAllByProductId(id);
-        Type listType = new TypeToken<List<ReviewDto>>(){}.getType();
-        return modelMapper.map(reviews,listType);
-    }
-
+    public void delete(int id) {reviewRepo.deleteById(id);}
 }
