@@ -7,12 +7,15 @@ import edu.miu.springdatademo.entity.Category;
 import edu.miu.springdatademo.repo.CategoryRepo;
 import edu.miu.springdatademo.service.AddressService;
 import edu.miu.springdatademo.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     public CategoryRepo categoryRepo;

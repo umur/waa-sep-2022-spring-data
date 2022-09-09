@@ -9,10 +9,10 @@ public interface ReviewService {
     public List<ReviewDTO> getAllReview();
     public ReviewDTO getReviewById(Integer id);
     //Create
-    public ReviewDTO SaveReview(ReviewDTO addressDTO);
+    public ReviewDTO SaveReview(ReviewDTO reviewDTO);
 
     //Update
-    public ReviewDTO updateReview(ReviewDTO addressDTO, Integer id);
+    public ReviewDTO updateReview(ReviewDTO reviewDTO, Integer id);
 
     //delete
     public ReviewDTO deleteReview(Integer id);

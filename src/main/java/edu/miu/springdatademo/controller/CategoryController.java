@@ -1,11 +1,9 @@
 package edu.miu.springdatademo.controller;
 
-import edu.miu.springdatademo.entity.Category;
+import edu.miu.springdatademo.dto.CategoryDTO;
+import edu.miu.springdatademo.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +13,27 @@ import java.util.List;
 
 public class CategoryController {
 
+    private final CategoryService categoryService;
 
+    @PostMapping
+    public CategoryDTO save(@RequestBody CategoryDTO categoryDTO){
+        return categoryService.SaveCategory(categoryDTO);
+    }
+
+    @GetMapping
+    public List<CategoryDTO> findAll(){
+        return categoryService.getAllCategory();
+    }
+
+    @GetMapping("/{id}")
+    public  CategoryDTO find(@PathVariable Integer id){
+        return categoryService.getCategoryById(id);
+    }
+
+    @PutMapping("/{id}")
+    public CategoryDTO update(@PathVariable Integer id, @RequestBody CategoryDTO categoryDTO){
+        return categoryService.updateCategory(categoryDTO,id);
+    }
 
 
     }

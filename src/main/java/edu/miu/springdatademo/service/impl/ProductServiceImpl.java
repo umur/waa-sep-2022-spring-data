@@ -1,12 +1,12 @@
 package edu.miu.springdatademo.service.impl;
 
 import edu.miu.springdatademo.dto.ProductDTO;
+import edu.miu.springdatademo.dto.ReviewDTO;
 import edu.miu.springdatademo.entity.Product;
 import edu.miu.springdatademo.repo.ProductRepo;
 import edu.miu.springdatademo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,31 +21,32 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getAllProduct() {
-//        List<Pr>
-
-
-
-        return null;
+        return productRepo.findAll().stream().map(all->modelMapper.map(all,ProductDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public ProductDTO getProductById() {
-        return null;
+    public ProductDTO getProductById(Integer id) {
+        return modelMapper.map(productRepo.findById(id).
+                orElseThrow(()->new RuntimeException("Invalid Info about Id")),ProductDTO.class);
     }
 
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
-        return null;
+        return modelMapper.map(productRepo.save(modelMapper.map(productDTO,Product.class)),ProductDTO.class);
     }
 
     @Override
     public ProductDTO updateProduct(ProductDTO productDTO, Integer id) {
-        return null;
+        Product product = modelMapper.map(productDTO, Product.class);
+        product = productRepo.save(product);
+        return modelMapper.map(product, ProductDTO.class);
     }
 
     @Override
     public ProductDTO deleteProduct(Integer id) {
-        return null;
+        Product product = productRepo.findById(id).orElseThrow(() -> new RuntimeException("Invalid ID!"));
+        productRepo.delete(product);
+        return modelMapper.map(product, ProductDTO.class);
     }
 
     @Override
@@ -53,5 +54,17 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepo.findAllByPriceGreaterThan(minPrice);
 
         return products.stream().map(product -> modelMapper.map(product,ProductDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> findProductContainingKeyword(String keyword) {
+        return  productRepo.findAllByNameContaining(keyword)
+                .stream().map(pro -> modelMapper.map(pro, ProductDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReviewDTO> findReviewsOfProduct(Long id) {
+        return null;
+                //productRepo.findById(id).orElseThrow(()-> new RuntimeException("Incorrect ID")).getRating();
     }
 }
