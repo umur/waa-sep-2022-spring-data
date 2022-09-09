@@ -1,11 +1,13 @@
 package edu.miu.springdataday3.service;
 
+import edu.miu.springdataday3.dto.ProductDto;
 import edu.miu.springdataday3.entitiy.Product;
 import edu.miu.springdataday3.repo.ProductRepo;
 
 import java.util.List;
 
 public interface ProductService {
+    List<ProductDto> findDtoProducts();
     List<Product> findAll();
 
     void save(Product product);

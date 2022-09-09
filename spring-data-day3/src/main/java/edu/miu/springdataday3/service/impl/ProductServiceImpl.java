@@ -1,5 +1,6 @@
 package edu.miu.springdataday3.service.impl;
 
+import edu.miu.springdataday3.dto.ProductDto;
 import edu.miu.springdataday3.entitiy.Product;
 import edu.miu.springdataday3.repo.ProductRepo;
 import edu.miu.springdataday3.service.ProductService;
@@ -11,6 +12,11 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepo productRepo;
+
+    @Override
+    public List<ProductDto> findDtoProducts() {
+        return productRepo.findDtoProducts();
+    }
 
     @Override
     public List<Product> findAll() {

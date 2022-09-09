@@ -1,5 +1,6 @@
 package edu.miu.springdataday3.repo;
 
+import edu.miu.springdataday3.dto.ProductDto;
 import edu.miu.springdataday3.entitiy.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,12 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends CrudRepository<Product,Integer> {
+
     List<Product> findAll();
+
+    //Fetch only productDto
+    @Query(value = "SELECT p.id as id ,p.name as name FROM Product p ")
+    List<ProductDto> findDtoProducts();
 
     // Find all products that cost more than minPrice
     List<Product>findAllByPriceGreaterThan(double price);

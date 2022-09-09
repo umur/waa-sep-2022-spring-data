@@ -1,5 +1,6 @@
 package edu.miu.springdataday3.controller;
 
+import edu.miu.springdataday3.dto.ProductDto;
 import edu.miu.springdataday3.entitiy.Product;
 import edu.miu.springdataday3.repo.ProductRepo;
 import edu.miu.springdataday3.service.ProductService;
@@ -13,6 +14,10 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
+    @GetMapping("/productdto")
+    List<ProductDto> findDtoProducts(){
+        return productService.findDtoProducts();
+    }
 
     @GetMapping
     List<Product> getAllProducts(){
