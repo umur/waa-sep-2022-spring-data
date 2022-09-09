@@ -1,5 +1,6 @@
 package edu.miu.springdataday3.entitiy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Address {
     private int zip;
     private String city;
     @OneToOne
+    @JsonBackReference
     private User user;
 
 
