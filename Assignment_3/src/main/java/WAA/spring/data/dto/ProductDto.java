@@ -16,8 +16,6 @@ public class ProductDto {
     private double price;
     private int rating;
 
-//    @JoinColumn
-//    @ManyToOne
-    private Category category;
+    private CategoryDto category;
 
 }

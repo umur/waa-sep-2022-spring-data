@@ -40,11 +40,11 @@ public class ProductServiceImple implements ProductService {
         Product productreq =modelMapper.map(productDtoreq, Product.class);
         Product product=productRepo.findById(id).orElse(null);
         if(product==null)
-            throw new NullPointerException("Id is not alid");
+            throw new NullPointerException("Id is not valid");
 
         product.setName(productDtoreq.getName());
         product.setPrice(productDtoreq.getPrice());
-        product.setCategory(productDtoreq.getCategory());
+     //   product.setCategory(productDtoreq.getCategory());
         product.setRating(productDtoreq.getRating());
         productRepo.save(product);
 
