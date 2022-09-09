@@ -33,7 +33,27 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public void deleteById() {
+    public ProductDto findProductById(int id) {
+        return null;
+    }
+
+    @Override
+    public List<ProductDto> findByPriceGreaterThan(double price) {
+        return null;
+    }
+
+    @Override
+    public List<ProductDto> findByCategoryAndPriceLessThan(double price) {
+        return null;
+    }
+
+    @Override
+    public List<ProductDto> findByNameContains(String keyword) {
+        return null;
+    }
+
+    @Override
+    public void deleteById( int id) {
 
     }
 }

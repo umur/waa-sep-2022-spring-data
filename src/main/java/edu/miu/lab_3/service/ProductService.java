@@ -9,9 +9,13 @@ import java.util.List;
 public interface ProductService {
     public Product save(ProductDto productDto);
     public List<ProductDto> findAll();
-    void deleteById();
+    void deleteById(int id);
+    ProductDto findProductById(int id);
+    List<ProductDto> findByPriceGreaterThan(double price);
+    List<ProductDto> findByCategoryAndPriceLessThan(double price);
+    List<ProductDto> findByNameContains(String keyword);
 
-//    void updateById()
+
 
 
 
