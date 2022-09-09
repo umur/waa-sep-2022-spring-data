@@ -1,26 +1,28 @@
 package com.example.assignment3.dto;
 
-import lombok.Data;
+import io.swagger.annotations.ApiModel;
+import lombok.Value;
 
 import java.io.Serializable;
 
 /**
  * A DTO for the {@link com.example.assignment3.entity.Product} entity
  */
-@Data
+@Value
+@ApiModel()
 public class ProductDto implements Serializable {
-    private final Long id;
-    private final String name;
-    private final int price;
-    private final double rating;
-    private final CategoryDto category;
+    Long id;
+    String name;
+    int price;
+    double rating;
+    CategoryDto category;
 
     /**
      * A DTO for the {@link com.example.assignment3.entity.Category} entity
      */
-    @Data
+    @Value
     public static class CategoryDto implements Serializable {
-        private final Long id;
-        private final String name;
+        Long id;
+        String name;
     }
 }

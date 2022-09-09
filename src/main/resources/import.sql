@@ -1,0 +1,1 @@
+INSERT INTO address_table (id, city, create_at, street,update_at, zip) VALUES (1, 'fairfield', CURRENT_TIMESTAMP, 'N 4st', CURRENT_TIMESTAMP, 52557);

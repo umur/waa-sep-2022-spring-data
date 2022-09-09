@@ -6,9 +6,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "review")
+@Table(name = "review_table")
 @Getter
 @Setter
 @ToString
@@ -21,6 +22,9 @@ public class Review {
 
     private String comment;
 
+    private LocalDate createAt;
+
+    private LocalDate updateAt;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

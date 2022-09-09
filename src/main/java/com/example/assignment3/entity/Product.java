@@ -4,10 +4,11 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "product")
+@Table(name = "product_table")
 @Getter
 @Setter
 @ToString
@@ -24,6 +25,9 @@ public class Product {
 
     private double rating;
 
+    private LocalDate createAt;
+
+    private LocalDate updateAt;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

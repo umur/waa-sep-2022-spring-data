@@ -4,11 +4,12 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_table")
 @Getter
 @Setter
 @ToString
@@ -26,6 +27,10 @@ public class User {
     private String firstname;
 
     private String lastname;
+
+    private LocalDate createAt;
+
+    private LocalDate updateAt;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Review> reviews = new java.util.ArrayList<>();

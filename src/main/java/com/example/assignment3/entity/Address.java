@@ -6,9 +6,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "address")
+@Table(name = "address_table")
 @Getter
 @Setter
 @ToString
@@ -18,12 +19,11 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String street;
-
     private String city;
-
     private int zip;
+    private LocalDate createAt;
+    private LocalDate updateAt;
 
     @OneToOne
     @JoinColumn(name = "user_id")
