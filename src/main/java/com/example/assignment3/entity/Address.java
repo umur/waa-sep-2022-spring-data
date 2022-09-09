@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class Address {
     private LocalDate createAt;
     private LocalDate updateAt;
 
-    @OneToOne
+    @OneToOne(mappedBy = "address")
     @JoinColumn(name = "user_id")
     private User user;
 

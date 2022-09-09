@@ -1,6 +1,7 @@
 package com.example.assignment3.dto;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -9,34 +10,34 @@ import java.util.List;
 /**
  * A DTO for the {@link com.example.assignment3.entity.User} entity
  */
-@Value
+@Data
 @ApiModel()
 public class UserDto implements Serializable {
-    Long id;
-    String email;
-    String password;
-    String firstname;
-    String lastname;
-    List<ReviewDto> reviews;
-    AddressDto address;
+    private Long id;
+    private String email;
+    private String password;
+    private String firstname;
+    private String lastname;
+    private List<ReviewDto> reviews;
+    private AddressDto address;
 
     /**
      * A DTO for the {@link com.example.assignment3.entity.Review} entity
      */
-    @Value
+    @Data
     public static class ReviewDto implements Serializable {
-        Long id;
-        String comment;
+        private Long id;
+        private String comment;
     }
 
     /**
      * A DTO for the {@link com.example.assignment3.entity.Address} entity
      */
-    @Value
+    @Data
     public static class AddressDto implements Serializable {
-        Long id;
-        String street;
-        String city;
-        int zip;
+        private Long id;
+        private String street;
+        private String city;
+        private int zip;
     }
 }

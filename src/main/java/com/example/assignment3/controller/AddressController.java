@@ -30,13 +30,13 @@ public class AddressController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:[0-9]}")
     public ResponseEntity<AddressDto> findById(@PathVariable("id") Long id) {
         AddressDto address = addressService.findById(id);
         return ResponseEntity.ok(address);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:[0-9]}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         Optional.ofNullable(addressService.findById(id)).orElseThrow(() -> {
             log.error("Unable to delete non-existent data！");
@@ -52,7 +52,7 @@ public class AddressController {
         return ResponseEntity.ok(addressPage);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id:[0-9]}")
     public ResponseEntity<AddressDto> update(@RequestBody @Validated AddressDto addressDto, @PathVariable("id") Long id) {
         AddressDto updatedAddress = addressService.update(addressDto, id);
         return ResponseEntity.ok(updatedAddress);
