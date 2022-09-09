@@ -1,13 +1,13 @@
 package edu.miu.springdataday3.service.impl;
 
 import edu.miu.springdataday3.entity.Category;
+import edu.miu.springdataday3.entity.Product;
 import edu.miu.springdataday3.entity.dto.CategoryDTO;
+import edu.miu.springdataday3.entity.dto.ProductDTO;
 import edu.miu.springdataday3.repo.CategoryRepo;
 import edu.miu.springdataday3.service.CategoryService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,4 +44,14 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepo.delete(category);
         return modelMapper.map(category, CategoryDTO.class);
     }
+
+    @Override
+    public List<ProductDTO> findProductsWithCateAndMaxPrice(String name, Long maxPrice) {
+        List<Category> categories = categoryRepo.findAllByNameContaining(name);
+        List<Product> productList = categories.stream().flatMap(category -> category.getProduct().stream()).distinct().collect(Collectors.toList());
+        productList = productList.stream().filter(product -> product.getPrice() < maxPrice).collect(Collectors.toList());
+        return productList.stream().map(product -> modelMapper.map( product, ProductDTO.class)).collect(Collectors.toList());
+    }
+
+
 }

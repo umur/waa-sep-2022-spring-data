@@ -1,6 +1,7 @@
 package edu.miu.springdataday3.service;
 
 import edu.miu.springdataday3.entity.dto.ProductDTO;
+import edu.miu.springdataday3.entity.dto.ReviewDTO;
 
 import java.util.List;
 
@@ -20,4 +21,10 @@ public interface ProductService {
 
 
     List<ProductDTO> minPrice(Long price);
+
+    List<ProductDTO> findProductWithKeyword(String keyword);
+
+    List<ReviewDTO> findReviewsOfProduct(Long id);
+
+
 }

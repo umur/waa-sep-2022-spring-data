@@ -2,7 +2,9 @@ package edu.miu.springdataday3.service.impl;
 
 import edu.miu.springdataday3.entity.Category;
 import edu.miu.springdataday3.entity.Product;
+import edu.miu.springdataday3.entity.Review;
 import edu.miu.springdataday3.entity.dto.ProductDTO;
+import edu.miu.springdataday3.entity.dto.ReviewDTO;
 import edu.miu.springdataday3.repo.ProductRepo;
 import edu.miu.springdataday3.service.ProductService;
 import lombok.NoArgsConstructor;
@@ -57,4 +59,18 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productList = productRepo.findAllByPriceGreaterThan(price);
         return productList.stream().map(product -> modelMapper.map(product, ProductDTO.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProductDTO> findProductWithKeyword(String keyword) {
+        return productRepo.findAllByNameContaining(keyword).stream().map(p -> modelMapper.map(p, ProductDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReviewDTO> findReviewsOfProduct(Long id) {
+        Product product = productRepo.findById(id).orElseThrow(() -> new RuntimeException("Invalid ID!"));
+        return product.getReviews().stream().map(r -> modelMapper.map(r, ReviewDTO.class)).collect(Collectors.toList());
+    }
+
+
+
 }

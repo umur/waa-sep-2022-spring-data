@@ -1,6 +1,7 @@
 package edu.miu.springdataday3.controller;
 
 import edu.miu.springdataday3.entity.dto.CategoryDTO;
+import edu.miu.springdataday3.entity.dto.ProductDTO;
 import edu.miu.springdataday3.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,11 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public CategoryDTO delete(@PathVariable Long id){
         return categoryService.delete(id);
+    }
+
+    @GetMapping("/{name}")
+    public List<ProductDTO> findProductsWithCateAndMaxPrice(@PathVariable String name, @RequestParam Long maxPrice){
+        return categoryService.findProductsWithCateAndMaxPrice(name, maxPrice);
     }
 
 }

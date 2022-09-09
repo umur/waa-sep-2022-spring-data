@@ -1,6 +1,7 @@
 package edu.miu.springdataday3.controller;
 
 import edu.miu.springdataday3.entity.dto.ProductDTO;
+import edu.miu.springdataday3.entity.dto.ReviewDTO;
 import edu.miu.springdataday3.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +39,18 @@ public class ProductController {
     }
 
     // more than minPrice
-    @GetMapping("/minprice/{price}")
+    @GetMapping("/min-price/{price}")
     public List<ProductDTO> minPrice(@PathVariable Long price){
         return productService.minPrice(price);
+    }
+
+    @GetMapping("/keyword")
+    public List<ProductDTO> findProductWithKeyword(@RequestParam String keyword){
+        return productService.findProductWithKeyword(keyword);
+    }
+
+    @GetMapping("/{id}/reviews")
+    public List<ReviewDTO> findReviewsOfProduct(@PathVariable Long id){
+        return productService.findReviewsOfProduct(id);
     }
 }
