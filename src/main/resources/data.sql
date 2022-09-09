@@ -1,0 +1,1 @@
+insert into product(id,name,price,rating) values(3,'T-shirst',600,4)
