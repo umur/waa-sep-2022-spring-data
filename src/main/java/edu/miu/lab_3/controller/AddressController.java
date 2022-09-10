@@ -15,7 +15,7 @@ import java.util.List;
 public class AddressController {
     @Autowired
     private final AddressServiceImp addressService;
-    @GetMapping
+    @GetMapping("")
     public List<AddressDto> findAll() {
         return addressService.findAll();
     }
@@ -31,7 +31,7 @@ public class AddressController {
          addressService.save(address);
     }
     @DeleteMapping("/{id}")
-    public void deleteAddress(int id){
+    public void deleteAddress(@PathVariable int id){
          addressService.deleteAddressById(id);
     }
     @PutMapping("/{id}")

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -28,10 +29,13 @@ public class AddressServiceImp implements AddressService {
         return mapAddressToAddressDtos(addressRepo.findAll());
     }
     private List<AddressDto> mapAddressToAddressDtos(Iterable<Address> addressIterable) {
+        System.out.println("MAPPING ADDRESS TO DTO");
         List<AddressDto> dtoList = new ArrayList<>();
-        while (addressIterable.iterator().hasNext()) {
-            dtoList.add(modelMapper.map(addressIterable.iterator().next(), AddressDto.class));
+
+        for (Address address : addressIterable) {
+            dtoList.add(modelMapper.map(address, AddressDto.class));
         }
+
         return dtoList;
     }
     @Override

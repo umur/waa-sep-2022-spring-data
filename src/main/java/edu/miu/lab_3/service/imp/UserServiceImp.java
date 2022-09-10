@@ -36,8 +36,8 @@ public class UserServiceImp implements UserService {
     private List<UserDto> mapUsersToUserDtos(Iterable<User> userIterable) {
         List<UserDto> dtoList = new ArrayList<>();
 
-        while (userIterable.iterator().hasNext()) {
-            dtoList.add(modelMapper.map(userIterable.iterator().next(), UserDto.class));
+        for(User user : userIterable) {
+            dtoList.add(modelMapper.map(user,UserDto.class));
         }
 
         return dtoList;
@@ -58,16 +58,16 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDto save(UserDto userDto) {
+    public void save(UserDto userDto) {
         User user =  userRepo.save(mapUserDtoToUser(userDto));
-        return mapUserToUserDto(user);
+         mapUserToUserDto(user);
     }
     private User mapUserDtoToUser(UserDto userDto) {
         return modelMapper.map(userDto, User.class);
     }
 
     @Override
-    public UserDto update(int id, UserDto userDto) {
+    public void update(int id, UserDto userDto) {
         /**
          * For update operations:
          *
@@ -78,6 +78,6 @@ public class UserServiceImp implements UserService {
          * If your service is transactional (i.e. @Transactional,)
          * After getting the object, calling the setter would automatically update the entity
          */
-        return null;
+       save(userDto);
     }
 }

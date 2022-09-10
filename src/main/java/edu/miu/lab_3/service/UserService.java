@@ -8,7 +8,7 @@ public interface UserService {
     List<UserDto> findAll();
     UserDto findUserById(int id);
     void deleteUserById(int id);
-    UserDto save(UserDto userDto);
-    UserDto update(int id, UserDto userDto);
+    void save(UserDto userDto);
+    void update(int id, UserDto userDto);
 
 }
