@@ -20,10 +20,10 @@ public class Product {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
-    private double price;
+    private long price;
     private int rating;
 
-    public Product(String name, double price, int rating, Category category) {
+    public Product(String name, long price, int rating, Category category) {
         this.name = name;
         this.price = price;
         this.rating = rating;

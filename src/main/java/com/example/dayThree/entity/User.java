@@ -25,7 +25,6 @@ public class User {
     @OneToOne(cascade = CascadeType.PERSIST)
     private Address address;
 
-    @OneToMany(cascade =  CascadeType.PERSIST,  mappedBy = "user",fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @OneToMany(cascade =  CascadeType.PERSIST,  mappedBy = "user")
     private List<Review> reviewList;
 }

@@ -3,6 +3,7 @@ package com.example.dayThree.controller;
 import com.example.dayThree.Service.ProductService;
 import com.example.dayThree.entity.Category;
 import com.example.dayThree.entity.Product;
+import com.example.dayThree.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,4 +35,16 @@ public class ProductController {
     public Optional<Product> deleteProduct(@PathVariable long id){
         return productService.deleteProduct(id);
     }
+
+    @GetMapping("/price")
+    public List<Product> filterByPrice(@RequestParam long price){
+       return productService.filterByPrice(price);
+    }
+
+    @GetMapping("/keyword")
+    public List<Product> filterByPrice(@RequestParam String keyword){
+       return productService.containKeyword(keyword);
+
+    }
+
 }

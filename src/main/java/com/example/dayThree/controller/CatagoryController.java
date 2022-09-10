@@ -3,11 +3,9 @@ package com.example.dayThree.controller;
 import com.example.dayThree.Service.CatagoryService;
 import com.example.dayThree.entity.Address;
 import com.example.dayThree.entity.Category;
+import com.example.dayThree.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,5 +24,11 @@ public class CatagoryController {
     @GetMapping("/{id}")
     public Optional<Category> getCatagoryById(@PathVariable long id){
         return catagoryService.getCatagoryById(id);
+    }
+
+
+    @GetMapping("/filter")
+    public List<Product> listOfProductLessThanPrice(@RequestParam String categoryName, @RequestParam long price){
+       return catagoryService.findProductLessThanPrice(categoryName, price);
     }
 }

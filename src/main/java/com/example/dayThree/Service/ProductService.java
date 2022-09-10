@@ -1,6 +1,7 @@
 package com.example.dayThree.Service;
 
 import com.example.dayThree.entity.Product;
+import com.example.dayThree.entity.Review;
 import com.example.dayThree.repo.CatagoryRepo;
 import com.example.dayThree.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +35,13 @@ public class ProductService {
         productRepo.deleteById(id);
         return product;
     }
+
+    public List<Product> filterByPrice(long price) {
+       return productRepo.findByPriceGreaterThan(price);
+    }
+
+    public List<Product> containKeyword(String keyword) {
+        return productRepo.findByNameContaining(keyword);
+    }
+
 }
