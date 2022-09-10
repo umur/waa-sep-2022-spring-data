@@ -46,9 +46,7 @@ public class AddressServiceImpl implements AddressService {
 
     public AddressDto update(AddressDto addressDto, Long id) {
         Address data = findByIdRow(id);
-        System.out.println(data.getCreateAt());
         addressMapper.updateEntityFromDto(addressDto, data);
-        System.out.println(data.getCreateAt());
         return addressMapper.toDto(repository.save(data));
     }
 
