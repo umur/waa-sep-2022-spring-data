@@ -31,7 +31,8 @@ In this lab you will develop a Product Review Application.
 	* Find all products that cost more than `minPrice`.
 	* Find all products in `cat` category and cost less than `maxPrice`.
 	* Find all products that contain `keyword` in the name.
-	* Find reviews of the product whose id is `id`. 
+	* Find reviews of the user whose id is `id`. or
+	* Find products of the category whose id is `id`. 
 
 ### Technical Details
 ---
