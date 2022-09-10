@@ -1,19 +1,23 @@
 package com.waa.springdata.controller;
 
 import com.waa.springdata.dto.ProductDto;
+import com.waa.springdata.dto.SimpleProductDto;
 import com.waa.springdata.entity.Product;
 import com.waa.springdata.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("products")
 public class ProductController {
     private ProductService productService;
-
-    public ProductController(ProductService productService) {
+    HttpServletRequest request;
+    public ProductController(ProductService productService,
+                             HttpServletRequest request) {
         this.productService = productService;
+        this.request =request;
     }
 
     @GetMapping
@@ -41,6 +45,11 @@ public class ProductController {
     @GetMapping("/filter/keyword")
     public List<Product> findByNameContaining(@RequestParam String keyword) {
         return this.productService.findByNameContaining(keyword);
+    }
+
+    @GetMapping("simplified")
+    public List<SimpleProductDto> getSimplifiedProduct() {
+        return this.productService.getSimplifiedProductInfo();
     }
     @PostMapping()
     public Product createProduct(@RequestBody Product product) {

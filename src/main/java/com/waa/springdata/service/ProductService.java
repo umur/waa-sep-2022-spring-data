@@ -1,12 +1,13 @@
 package com.waa.springdata.service;
 
+import com.waa.springdata.aop.annotation.ExecutionTime;
+import com.waa.springdata.aop.annotation.LogThis;
 import com.waa.springdata.dto.ProductDto;
-import com.waa.springdata.entity.Category;
+import com.waa.springdata.dto.SimpleProductDto;
 import com.waa.springdata.entity.Product;
 import com.waa.springdata.repo.ProductRepo;
 import com.waa.springdata.service.interfaces.ProductInterface;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -64,6 +65,8 @@ public class ProductService implements ProductInterface {
     public Product createProduct(Product product) {
         return productRepo.save(product);
     }
+    @LogThis
+    @ExecutionTime
     public List<ProductDto> findAll() {
         List<Product> productEntities = productRepo.findAll();
         List<ProductDto> productDtos = new ArrayList<>();
@@ -87,4 +90,7 @@ public class ProductService implements ProductInterface {
     }
 
 
+    public List<SimpleProductDto> getSimplifiedProductInfo() {
+        return productRepo.fetchSimpleProduct();
+    }
 }

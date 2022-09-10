@@ -1,8 +1,7 @@
 package com.waa.springdata.repo;
 
-import com.waa.springdata.entity.Category;
+import com.waa.springdata.dto.SimpleProductDto;
 import com.waa.springdata.entity.Product;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -44,6 +43,9 @@ public interface ProductRepo extends CrudRepository<Product, Integer> {
     List<Product> findByNameContainingJQPL(String keyword);
     // using Naming convention
     List<Product> findByNameContaining(String keyword);
-
+    //using DTO projection
+    @Query(value = "select new com.waa.springdata.dto.SimpleProductDto(p.id, p.name, p.price, p.rating, c.id, c.name)  from Product p " +
+            "join Category c on c.id = p.category.id")
+    List<SimpleProductDto> fetchSimpleProduct();
 
 }
