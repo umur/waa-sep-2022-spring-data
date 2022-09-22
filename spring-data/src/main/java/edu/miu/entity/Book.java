@@ -10,19 +10,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Product {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String name;
-    private double price;
-    private int rating;
+    private String title;
 
-    @ManyToOne
-    private Category category;
+//    @OneToMany(mappedBy = "book")
+//    private List<BookPublisher> bookPublisher;
 
-    @ManyToOne
-    private User user;
+    public Long getId() {
+        return id;
+    }
 }

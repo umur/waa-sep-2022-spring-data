@@ -36,4 +36,9 @@ public class Category {
     public void addProduct(Product product) {
         products.add(product);
     }
+
+    public void setProducts(List<Product> products) {
+        products.forEach(product -> product.setCategory(this));
+        this.products = products;
+    }
 }

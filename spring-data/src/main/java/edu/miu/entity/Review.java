@@ -16,8 +16,8 @@ public class Review {
     @ManyToOne
     private Product product;
 
-//    @ManyToOne
-//    private User user;
+    @ManyToOne
+    private User user;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class Review {
         this.comment = comment;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
+    public User getUser() {
+        return user;
+    }
 
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

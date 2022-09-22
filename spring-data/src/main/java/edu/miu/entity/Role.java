@@ -6,23 +6,20 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Product {
+@Entity
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String name;
-    private double price;
-    private int rating;
+    private String role;
+    private String accessiblePath;
 
-    @ManyToOne
-    private Category category;
-
-    @ManyToOne
-    private User user;
+    public Long getId() {
+        return id;
+    }
 }

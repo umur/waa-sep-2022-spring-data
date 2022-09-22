@@ -3,9 +3,12 @@ package edu.miu.service.impl;
 import edu.miu.annotation.ExecutionTime;
 import edu.miu.dto.ProductDTO;
 import edu.miu.entity.Product;
+import edu.miu.entity.User;
 import edu.miu.repo.ProductRepo;
+import edu.miu.security.impl.AuthenticationFacadeImpl;
 import edu.miu.service.ProductService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +18,21 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
     private final ProductRepo productRepo;
 
-    public ProductServiceImpl(ModelMapper modelMapper, ProductRepo productRepo) {
+    private final AuthenticationFacadeImpl authenticationFacade;
+
+    public ProductServiceImpl(ModelMapper modelMapper, ProductRepo productRepo, AuthenticationFacadeImpl authenticationFacade) {
         this.modelMapper = modelMapper;
         this.productRepo = productRepo;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @ExecutionTime
     @Override
     public void save(ProductDTO productDTO) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        User user = (User) authentication.getDetails();
+        Product product = modelMapper.map(productDTO, Product.class);
+        product.setUser(user);
         productRepo.save(modelMapper.map(productDTO, Product.class));
     }
 
